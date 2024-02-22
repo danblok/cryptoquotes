@@ -4,7 +4,7 @@ import "context"
 
 // QuotesSource returns Quotes.
 type QuotesSource interface {
-	Quotes(context.Context) ([]Quote, error)
+	Quotes(context.Context, ...string) ([]Quote, error)
 }
 
 // Quote contains info about Quote.
