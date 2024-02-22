@@ -7,31 +7,31 @@ import (
 
 // HTTPConfig is a config for HTTP API server.
 type HTTPConfig struct {
-	host string
-	port uint16
-	cert *tls.Certificate
+	host      string
+	port      uint16
+	tlsConfig *tls.Config
 }
 
 // NewHTTPConfig constructs a new Config for HTTP API server.
-func NewHTTPConfig(host string, port uint16, cert *tls.Certificate) *HTTPConfig {
+func NewHTTPConfig(host string, port uint16, tlsConfig *tls.Config) *HTTPConfig {
 	return &HTTPConfig{
-		host: host,
-		port: port,
-		cert: cert,
+		host:      host,
+		port:      port,
+		tlsConfig: tlsConfig,
 	}
 }
 
 // URL returns the full URL of HTTP API server.
 func (c *HTTPConfig) URL() string {
-	if c.cert == nil {
+	if c.tlsConfig == nil {
 		return fmt.Sprintf("http://%s:%d", c.host, c.port)
 	}
 	return fmt.Sprintf("https://%s:%d", c.host, c.port)
 }
 
-// Cert returns the certificate of the HTTP API server.
-func (c *HTTPConfig) Cert() *tls.Certificate {
-	return c.cert
+// TLSConfig returns the certificate of the HTTP API server.
+func (c *HTTPConfig) TLSConfig() *tls.Config {
+	return c.tlsConfig
 }
 
 // Port returns the port to which the HTTP API server listens to.
